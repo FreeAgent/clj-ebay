@@ -1,4 +1,4 @@
-(defproject clj-ebay "0.1.0-SNAPSHOT"
+(defproject clj-ebay "0.2.0-SNAPSHOT"
   :description "This is an small Clojure binding for the Ebay APIs for affiliate marketing."
   :url "https://github.com/FreeAgent/clj-ebay"
   :license {:name "Eclipse Public License - v 1.0"
