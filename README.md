@@ -1,16 +1,14 @@
 clj-ebay
 ========
 
-Clojure wrapper library, forked from code by eduardoejp, obtained from Clojars.
+Clojure wrapper library for the eBay APIs for affiliate marketing, forked from code on Clojars by eduardoejp.
 
-This is an small Clojure binding for the Ebay APIs for affiliate marketing.
 
 ## Usage
 
 Leiningen 2 has been used for this project.
 
 Edit the "core" file and put your eBay developer APP-ID in place of nil for *app-id*. Then run...
-
 
     lein deps
 
@@ -40,7 +38,21 @@ At the REPL...
     (def CATEGORY-ID 377)
     (get-histograms CATEGORY-ID)
 
-The above examples only cover (a fraction of) the functions in the "finding.clj" file. Wrappers for several other eBay APIs have been implemented too.
+## Reference
+
+The above examples only cover (a subset of) the functions in the "finding.clj" file. Wrappers for several other eBay APIs have been implemented too.
+
+See eBay's own tutorials for their APIs:
+
+https://www.x.com/developers/ebay/documentation-tools/tutorials
+
+The methods in the sample code above depend on the "Finding API":
+
+http://developer.ebay.com/DevZone/finding/Concepts/FindingAPIGuide.html
+
+Here's the sitemap with links to documentation for the other APIs (shopping, merchandising, etc.):
+
+http://developer.ebay.com/sitemap/default.aspx
 
 ## License
 
