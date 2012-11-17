@@ -12,12 +12,11 @@
 
 (ns clj-ebay.product-metadata
   "This is an small Clojure binding for the Ebay Product API."
-  (:use (clj-ebay core)
-    (clojure.contrib def)))
+  (:use (clj-ebay core)))
 
-(defvar- +product-metadata-api+ "http://svcs.ebay.com/services/marketplacecatalog/ProductMetadataService/v1")
+(def ^{:private true} +product-metadata-api+ "http://svcs.ebay.com/services/marketplacecatalog/ProductMetadataService/v1")
 
-(defmacro- make-prodmetas [& specifics]
+(defmacro ^:private make-prodmetas [& specifics]
   (let [standard-fields '(global-id category-id)]
     `(do ~@(for [[finder-sym finder-meth finder-version specific-appends] (partition 4 specifics)]
              `(defn ~finder-sym "" [{:keys ~(vec (concat standard-fields (_extract-vars specific-appends)))}]

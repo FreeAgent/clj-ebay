@@ -12,12 +12,11 @@
 
 (ns clj-ebay.client-alerts
   "This is an small Clojure binding for the Ebay API for client alerts."
-  (:use (clj-ebay core)
-    (clojure.contrib def)))
+  (:use (clj-ebay core)))
 
-(defvar- +client-alerts-api+ "http://clientalerts.ebay.com/ws/ecasvc/ClientAlerts")
+(def ^{:private true} +client-alerts-api+ "http://clientalerts.ebay.com/ws/ecasvc/ClientAlerts")
 
-(defmacro- make-logins [& specifics]
+(defmacro ^:private make-logins [& specifics]
   (let [standard-fields '(global-id message-id)]
     `(do ~@(for [[finder-sym finder-meth finder-version specific-appends] (partition 4 specifics)]
              `(defn ~finder-sym "" [{:keys ~(vec (concat standard-fields (_extract-vars specific-appends)))}]
@@ -37,7 +36,7 @@
   logout "Logout" "569" ["SessionData.Value" session-data, "SessionID.Value" session-id]
   )
 
-(defmacro- make-notifs [& specifics]
+(defmacro ^:private make-notifs [& specifics]
   (let [standard-fields '(global-id error-language message-id version warning-level)]
     `(do ~@(for [[finder-sym finder-meth finder-version specific-appends] (partition 4 specifics)]
              `(defn ~finder-sym "" [{:keys ~(vec (concat standard-fields (_extract-vars specific-appends)))}]

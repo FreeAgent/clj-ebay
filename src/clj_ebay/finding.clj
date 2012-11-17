@@ -12,10 +12,9 @@
 
 (ns clj-ebay.finding
   "This is an small Clojure binding for the Ebay API for finding products."
-  (:use (clj-ebay core)
-    (clojure.contrib def)))
+  (:use (clj-ebay core)))
 
-(defvar- +finding-api+ "http://svcs.ebay.com/services/search/FindingService/v1")
+(def ^{:private true} +finding-api+ "http://svcs.ebay.com/services/search/FindingService/v1")
 
 (defn get-search-keywords-recommendation "" [keywords]
   (let [url (str +finding-api+ "?OPERATION-NAME=" "getSearchKeywordsRecommendation")
@@ -32,7 +31,7 @@
     (_fetch-url url)))
 
 ;Imagine that this macro is a specialized do-template
-(defmacro- make-finders [& specifics]
+(defmacro make-finders [& specifics]
   (let [standard-fields '(global-id custom-id network-id tracking-id buyer-postal-code entries-per-page page-number sort-order)]
     `(do ~@(for [[finder-sym finder-meth finder-version specific-appends] (partition 4 specifics)]
              `(defn ~finder-sym "" [{:keys ~(vec (concat standard-fields (_extract-vars specific-appends)))}]

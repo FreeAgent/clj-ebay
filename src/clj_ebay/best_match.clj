@@ -12,10 +12,9 @@
 
 (ns clj-ebay.best-match
   "This is an small Clojure binding for the Ebay API for merchandising products."
-  (:use (clj-ebay core)
-    (clojure.contrib def)))
+  (:use (clj-ebay core)))
 
-(defvar- +best-match-api+ "https://svcs.ebay.com/services/search/BestMatchItemDetailsService/v1")
+(def ^{:private true} +best-match-api+ "https://svcs.ebay.com/services/search/BestMatchItemDetailsService/v1")
 
 ; findBestMatchItemDetailsBySeller
 (defn find-best-match-item-details-by-seller ""
@@ -48,7 +47,7 @@
     (_fetch-url url)))
 
 ;Imagine that this macro is a specialized do-template
-(defmacro- make-best-matchers [& specifics]
+(defmacro ^:private make-best-matchers [& specifics]
   (let [standard-fields '(global-id entries-per-page ignore-featured output-selector
                            post-search-filter-item-id post-search-filter-seller-username site-results-per-page)]
     `(do ~@(for [[finder-sym finder-meth finder-version specific-appends] (partition 4 specifics)]

@@ -12,13 +12,12 @@
 
 (ns clj-ebay.shopping
   "This is an small Clojure binding for the Ebay API for shopping for products."
-  (:use (clj-ebay core)
-    (clojure.contrib def)))
+  (:use (clj-ebay core)))
 
-(defvar- +shopping-api+ "http://open.api.ebay.com/shopping")
+(def ^{:private true} +shopping-api+ "http://open.api.ebay.com/shopping")
 
 ;Imagine that this macro is a specialized do-template
-(defmacro- make-shoppers [& specifics]
+(defmacro ^:private make-shoppers [& specifics]
   (let [standard-fields '(global-id message-id)]
     `(do ~@(for [[finder-sym finder-meth finder-version specific-appends] (partition 4 specifics)]
              `(defn ~finder-sym "" [{:keys ~(vec (concat standard-fields (_extract-vars specific-appends)))}]

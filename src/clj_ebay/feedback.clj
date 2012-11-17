@@ -12,14 +12,13 @@
 
 (ns clj-ebay.feedback
   "This is an small Clojure binding for the Ebay API for sending feedback."
-  (:use (clj-ebay core)
-    (clojure.contrib def)))
+  (:use (clj-ebay core)))
 
 ;Need to find out which is the Feedback API's URL
-(defvar- +feedback-match-api+ "https://svcs.ebay.com/FeedbackService")
+(def ^{:private true} +feedback-match-api+ "https://svcs.ebay.com/FeedbackService")
 
 ;Imagine that this macro is a specialized do-template
-(defmacro- make-feedbacks [& specifics]
+(defmacro ^:private make-feedbacks [& specifics]
   (let [standard-fields '(global-id date-from date-to date-range-event-type)]
     `(do ~@(for [[finder-sym finder-meth finder-version specific-appends] (partition 4 specifics)]
              `(defn ~finder-sym "" [{:keys ~(vec (concat standard-fields (_extract-vars specific-appends)))}]

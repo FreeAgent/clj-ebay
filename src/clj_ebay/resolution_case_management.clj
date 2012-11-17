@@ -12,12 +12,11 @@
 
 (ns clj-ebay.resolution-case-management
   "This is an small Clojure binding for the Ebay API for resolution case management."
-  (:use (clj-ebay core)
-    (clojure.contrib def)))
+  (:use (clj-ebay core)))
 
-(defvar- +resolution-case-management-api+ "https://svcs.ebay.com/services/resolution/v1/ResolutionCaseManagementService")
+(def ^{:private true} +resolution-case-management-api+ "https://svcs.ebay.com/services/resolution/v1/ResolutionCaseManagementService")
 
-(defmacro- make-rcms [& specifics]
+(defmacro ^:private make-rcms [& specifics]
   (let [standard-fields '(global-id)]
     `(do ~@(for [[finder-sym finder-meth finder-version specific-appends] (partition 4 specifics)]
              `(defn ~finder-sym "" [{:keys ~(vec (concat standard-fields (_extract-vars specific-appends)))}]

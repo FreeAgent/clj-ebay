@@ -12,10 +12,9 @@
 
 (ns clj-ebay.price-research
   "This is an small Clojure binding for the Ebay API for finding products."
-  (:use (clj-ebay core)
-    (clojure.contrib def)))
+  (:use (clj-ebay core)))
 
-(defvar- +price-research-api+ "http://api.dataunison.com/rest/")
+(def ^{:private true} +price-research-api+ "http://api.dataunison.com/rest/")
 
 (defn get-price-research "" [{:keys [token user-token developer-name keywords end-time-to research-period currency
                                      include-daily-statistics site-id child-category-id listing-limit min-price max-price]}]

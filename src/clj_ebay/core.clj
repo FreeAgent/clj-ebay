@@ -11,23 +11,23 @@
 ;; You must not remove this notice, or any other, from this software.
 
 (ns clj-ebay.core
-  "This is an small Clojure binding for the Ebay APIs for affiliate marketing."
+  "This is a small Clojure binding for the ebay APIs for affiliate marketing."
   (:import (java.net URL URLEncoder))
   (:require [clj-http.client :as client]
-    (clojure.contrib [json :as json])))
+    (clojure.data [json :as json])))
 
 ; Global Vars
-(def #^{:doc "This var holds the application ID for doing REST calls."}
-  *app-id* nil)
+(def ^:dynamic #^{:doc "This var holds the application ID for doing REST calls."}
+  *app-id* "")
 
 ; Utility fns
 (defmacro with-app ""
   [app-id & forms]
   `(binding [*app-id* ~app-id] ~@forms))
 
-(defn _encode-url [url] (URLEncoder/encode url "UTF-8"))
+(defn _encode-url [url] (if (nil? url) nil (URLEncoder/encode url "UTF-8")))
 
-(defn _fetch-url [url] (-> url client/get :body json/read-json))
+(defn _fetch-url [url] (-> url client/get :body json/read-str))
 
 (defn _append-arg
   ([url argk argv]
